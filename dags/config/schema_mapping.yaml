@@ -1,0 +1,65 @@
+dim_usagers:
+  columns:
+    id_usager: id_usager
+    id_accident: Num_Acc
+    sexe: sexe
+    gravite: grav
+    categorie_usager: catu
+    naissance: an_nais
+  dtypes:
+    id_usager: str
+    id_accident: int
+    sexe: str
+    gravite: str
+    categorie_usager: int
+    naissance: str
+
+dim_vehicules:
+  columns:
+    id_vehicule: id_vehicule
+    id_accident: Num_Acc
+    type_vehicule: catv
+    motor: motor
+    sense_circ: senc
+  dtypes:
+    id_vehicule: str
+    id_accident: int
+    type_vehicule: str
+    motor: int
+    sense_circ: int
+
+dim_lieux:
+  columns:
+    id_accident: Num_Acc
+    cat_route: catr
+  dtypes:
+    id_accident: int
+    cat_route: int
+
+fact_accidents:
+  columns:
+    id_accident: [Num_Acc, Accident_Id]
+    jour: jour
+    mois: mois
+    an: an
+    heure: hrmn
+    ville: com
+    weather: atm
+    luminosite: lum
+    lat: lat
+    long: long
+    code_departement: dep
+    colision_type: col
+  dtypes:
+    id_accident: int
+    jour: int
+    mois: int
+    an: int
+    heure: str
+    ville: str
+    weather: int
+    luminosite: int
+    lat: str
+    long: str
+    code_departement: str
+    colision_type: str

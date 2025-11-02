@@ -1,0 +1,2 @@
+Accuracy: 0.451
+Macro AUC: 0.528
