@@ -44,16 +44,17 @@ for year, urls in API_URLS_BY_YEAR.items():
         p >> load
 
 
-def run_training_script():
-    subprocess.run(["python", "/opt/airflow/dags/train_models.py"], check=True)
+def run_script(path):
+    subprocess.run(["python", path], check=True)
 
+tune_task = PythonOperator(
+    task_id="tune_models", python_callable=run_script,
+    op_args=["/opt/airflow/dags/tune_models.py"], dag=dag)
 
 train_task = PythonOperator(
-    task_id="train_models",
-    python_callable=run_training_script,
-    dag=dag,
-)
+    task_id="train_models", python_callable=run_script,
+    op_args=["/opt/airflow/dags/train_models.py"], dag=dag)
 
-# Lier à la fin de ton DAG
-for year in API_URLS_BY_YEAR.keys():
-    dag.get_task(f"load_to_postgres_{year}") >> train_task
+for year in API_URLS_BY_YEAR:
+    dag.get_task(f"load_to_postgres_{year}") >> tune_task
+tune_task >> train_task
